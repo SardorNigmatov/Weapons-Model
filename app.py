@@ -5,11 +5,11 @@ import platform
 import plotly.express as px
 import matplotlib.pyplot as plt
 
-# Disable Matplotlib global use warning
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-plt = platform.system()
-if plt == 'Linux': pathlib.WindowsPath = pathlib.PosixPath
+# Corrected platform check
+if platform.system() == 'Linux':
+    pathlib.WindowsPath = pathlib.PosixPath
 
 # title
 st.title("Qurollarni klassifikatsiya qiluvchi model")
@@ -28,7 +28,7 @@ if file:
     model = load_learner('weapons_model.pkl')
 
     # Bashorat
-    pred, pred_id , probs  = model.predict(img)
+    pred, pred_id, probs = model.predict(img)
 
     # Display prediction
     st.success(f"Bashorat qiymat: {pred}")
@@ -37,3 +37,14 @@ if file:
     # Plot using Plotly
     fig = px.bar(x=probs*100, y=model.dls.vocab)
     st.plotly_chart(fig)
+
+    # Additional Matplotlib plot
+    plt.figure()
+    plt.bar(model.dls.vocab, probs)
+    plt.xlabel('Class')
+    plt.ylabel('Probability')
+    plt.title('Probability Distribution')
+
+    # Display Matplotlib plot using st.pyplot()
+    st.pyplot()
+
