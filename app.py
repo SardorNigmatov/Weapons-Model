@@ -1,14 +1,15 @@
 import streamlit as st
 from fastai.vision.all import *
 import pathlib
+import plaform
 import plotly.express as px
 import matplotlib.pyplot as plt
 
 # Disable Matplotlib global use warning
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-temp = pathlib.PosixPath
-pathlib.PosixPath = pathlib.WindowsPath
+plt = platform.system()
+if plt == 'Linux': pathlib.WindowsPath = pathlib.PosixPath
 
 # title
 st.title("Qurollarni klassifikatsiya qiluvchi model")
