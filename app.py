@@ -1,7 +1,7 @@
 import streamlit as st
 from fastai.vision.all import *
 import pathlib
-import plaform
+import platform
 import plotly.express as px
 import matplotlib.pyplot as plt
 
