@@ -37,17 +37,3 @@ if file:
     # Plot using Plotly
     fig = px.bar(x=probs*100, y=model.dls.vocab)
     st.plotly_chart(fig)
-
-    # Additional Plot or Graphics
-    # You can add more plots or graphics using Streamlit or other plotting libraries here
-    # For example, using Matplotlib
-    fig, ax = plt.subplots()
-    ax.bar(model.dls.vocab, probs)
-    ax.set_xlabel('Class')
-    ax.set_ylabel('Probability')
-    ax.set_title('Probability Distribution')
-
-    # Pass the Matplotlib figure to st.pyplot
-    st.pyplot(fig)
-
-    # ... (you can continue adding more visualizations as needed)
