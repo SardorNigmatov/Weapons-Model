@@ -3,6 +3,7 @@ from fastai.vision.all import *
 import pathlib
 import plotly.express as px
 import matplotlib.pyplot as plt
+import platform
 
 # Disable Matplotlib global use warning
 st.set_option('deprecation.showPyplotGlobalUse', False)
