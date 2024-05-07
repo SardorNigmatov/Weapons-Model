@@ -44,6 +44,7 @@ if file:
     plt.bar(model.dls.vocab, probs)
     plt.xlabel('Class')
     plt.ylabel('Probability')
+    plt.xsticks(rotation=90)
     plt.title('Probability Distribution')
 
     # Display Matplotlib plot using st.pyplot()
