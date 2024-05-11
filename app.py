@@ -9,7 +9,7 @@ import seaborn as sns
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Corrected platform check
-if platform.system() == 'Linux':
+if platform.system() == 'Windows':
     pathlib.PosixPath = pathlib.WindowsPath
 
 # title
