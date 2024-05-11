@@ -1,8 +1,10 @@
 import streamlit as st
 from fastai.vision.all import *
 import pathlib
+import platform
 import plotly.express as px
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -29,22 +31,41 @@ if file:
     # Bashorat
     pred, pred_id, probs = model.predict(img)
 
-    # Bashoratni ko'rsatish
+    # Display prediction
     st.success(f"Bashorat qiymat: {pred}")
     st.info(f"Ehtimollik: {probs[pred_id]*100:.1f}%")
 
-    # Chizma sinfi ehtimollik taqsimoti
-    st.subheader("Sinf Ehtimolligi Taqsimoti")
+    # Plot using Plotly
     fig = px.bar(x=probs*100, y=model.dls.vocab)
     st.plotly_chart(fig)
 
-    # Additional Matplotlib plot
+    # Additional Matplotlib plot: Probability Distribution
     plt.figure()
     plt.bar(model.dls.vocab, probs)
-    plt.xlabel('Class')
-    plt.ylabel('Probability')
-    plt.title('Probability Distribution')
+    plt.xlabel('Sinf')
+    plt.ylabel('Ehtimolligi')
+    plt.xticks(rotation=90)
+    plt.title('Ehtimollik taqsimoti')
 
     # Display Matplotlib plot using st.pyplot()
     st.pyplot()
 
+    # Compute confusion matrix
+    interp = ClassificationInterpretation.from_learner(model)
+    cm = interp.confusion_matrix()
+
+    # Plot confusion matrix
+    st.subheader("Confusion Matrix")
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=model.dls.vocab, yticklabels=model.dls.vocab)
+    plt.xlabel("Bashorat qiymat")
+    plt.ylabel("Haqiqiy qiymat")
+    st.pyplot()
+
+    # Distribution of Probabilities
+    st.subheader("Ehtimollik taqsimoti")
+    plt.figure()
+    sns.histplot(probs, bins=10, kde=True)
+    plt.xlabel("Ehtimolligi")
+    plt.ylabel("Aniqligi")
+    st.pyplot()
