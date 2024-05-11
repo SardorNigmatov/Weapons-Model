@@ -38,8 +38,13 @@ if file:
     fig = px.bar(x=probs*100, y=model.dls.vocab)
     st.plotly_chart(fig)
 
-    # Confusion Matrix
-    st.subheader("Confusion Matrix")
-    interp = ClassificationInterpretation.from_learner(model)
-    interp.plot_confusion_matrix()
+    # Additional Matplotlib plot
+    plt.figure()
+    plt.bar(model.dls.vocab, probs)
+    plt.xlabel('Class')
+    plt.ylabel('Probability')
+    plt.title('Probability Distribution')
+
+    # Display Matplotlib plot using st.pyplot()
+    st.pyplot()
 
