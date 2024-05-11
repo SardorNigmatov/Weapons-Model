@@ -1,3 +1,6 @@
+import streamlit as st
+from fastai.vision.all import *
+import pathlib
 import platform
 import plotly.express as px
 import matplotlib.pyplot as plt
@@ -30,7 +33,7 @@ if file:
     plt.bar(model.dls.vocab, probs)
     plt.xlabel('Class')
     plt.ylabel('Probability')
-    plt.xticks(rotation=90)
+    plt.xsticks(rotation=90)
     plt.title('Probability Distribution')
 
     # Display Matplotlib plot using st.pyplot()
