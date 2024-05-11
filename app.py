@@ -52,7 +52,7 @@ if file:
 
     # Compute confusion matrix
     interp = ClassificationInterpretation.from_learner(model)
-    cm = interp.confusion_matrix()
+    _, _, cm = interp.confusion_matrix()
 
     # Plot confusion matrix
     st.subheader("Confusion Matrix")
